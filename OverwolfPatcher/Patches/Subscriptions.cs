@@ -31,6 +31,7 @@ internal class Subscriptions : IPatch
                 }
                 this.PrintHeader();
                 var resolver = new DefaultAssemblyResolver();
+                // resolver.AddSearchDirectory(ow.WindowsDesktopApp.FullName);
                 resolver.AddSearchDirectory(versionFolder.FullName);
                 var reader = new ReaderParameters { AssemblyResolver = resolver, ReadWrite = true, ReadingMode = ReadingMode.Immediate, InMemory = true };
 
@@ -71,7 +72,8 @@ internal class Subscriptions : IPatch
                             try
                             {
                                 overwolfCoreGES = OverwolfSubscriptionsGetExtensionSubscriptions(ref overwolfSubscriptions, overwolfCoreGES);
-                            } catch (Exception e)
+                            }
+                            catch (Exception e)
                             {
                                 Console.WriteLine("Error, Overwolf.Subscriptions will not be patched: ");
                                 Console.WriteLine(e);
@@ -85,14 +87,17 @@ internal class Subscriptions : IPatch
                     fullPath.Backup(true);
                     overwolfSubscriptions.Write(fullPath.FullName);
                     Console.WriteLine(Utils.Pad("Patched successfully"));
-                } catch (UnauthorizedAccessException) { Console.WriteLine($"Permission denied for file {fileString}"); } catch (Exception e)
+                }
+                catch (UnauthorizedAccessException) { Console.WriteLine($"Permission denied for file {fileString}"); }
+                catch (Exception e)
                 {
                     fullPath.Restore();
                     Console.WriteLine(e);
                 }
                 resolver.Dispose();
-                Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-            } catch (Exception ex)
+                Console.WriteLine(Utils.Fill('|'));
+            }
+            catch (Exception ex)
             {
                 error = ex;
                 return false;
@@ -164,7 +169,7 @@ internal class Subscriptions : IPatch
             overwolfCoreGES.Body.Instructions[25] = Instruction.Create(OpCodes.Ldloc_0);
             overwolfCoreGES.Body.Instructions[26] = Instruction.Create(OpCodes.Callvirt, overwolfSubscriptions.MainModule.GetType("Overwolf.Subscriptions.Model.Subscription").Methods.First(x => x.Name == "set_PlanId"));
             overwolfCoreGES.Body.Instructions[27] = Instruction.Create(OpCodes.Ldloc_1);
-            overwolfCoreGES.Body.Instructions[28] = Instruction.Create(OpCodes.Ldc_I8, 1735682400000);
+            overwolfCoreGES.Body.Instructions[28] = Instruction.Create(OpCodes.Ldc_I8, 1893530343000);
             overwolfCoreGES.Body.Instructions[29] = Instruction.Create(OpCodes.Callvirt, overwolfSubscriptions.MainModule.GetType("Overwolf.Subscriptions.Model.Subscription").Methods.First(x => x.Name == "set_Expiry"));
             overwolfCoreGES.Body.Instructions[30] = Instruction.Create(OpCodes.Ldloc_1);
             overwolfCoreGES.Body.Instructions[31] = Instruction.Create(OpCodes.Newobj, overwolfSubscriptions.MainModule.GetType("Overwolf.Subscriptions.Model.Subscription/Info").Methods.First(x => x.Name == ".ctor"));
@@ -207,7 +212,7 @@ internal class Subscriptions : IPatch
             overwolfCoreGES.Body.Instructions[66] = Instruction.Create(OpCodes.Add);
             overwolfCoreGES.Body.Instructions[67] = Instruction.Create(OpCodes.Stloc_0);
             overwolfCoreGES.Body.Instructions[68] = Instruction.Create(OpCodes.Ldloc_0);
-            overwolfCoreGES.Body.Instructions[69] = Instruction.Create(OpCodes.Ldc_I4, 9999);
+            overwolfCoreGES.Body.Instructions[69] = Instruction.Create(OpCodes.Ldc_I4, 99999);
             overwolfCoreGES.Body.Instructions[70] = Instruction.Create(OpCodes.Blt, overwolfCoreGES.Body.Instructions[19]);
 
             overwolfCoreGES.Body.Instructions[71] = Instruction.Create(OpCodes.Ldc_I4_1);

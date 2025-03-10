@@ -15,6 +15,7 @@ namespace OverwolfPatcher.Classes
 
         public DirectoryInfo ExtensionsFolder => DataFolder.Combine("Extensions");
         public List<DirectoryInfo> ProgramVersionFolders => ProgramFolder.GetDirectories(searchPattern: "*.*.*.*").ToList(); // C:\Program Files (x86)\Overwolf\0.258.1.7\
+        // public DirectoryInfo WindowsDesktopApp => new DirectoryInfo(@"C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\8.0.11");
         public List<Process> Processes => Process.GetProcessesByName(ProcessName).ToList();
     }
 }

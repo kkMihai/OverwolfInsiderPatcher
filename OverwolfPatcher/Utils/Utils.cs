@@ -4,23 +4,33 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
+using System.Threading;
 
 namespace Bluscream;
 
 internal static class Utils
 {
-    internal static List<int> GetPadding(string input, int minWidth = 80, int padding = 10)
+    const int defaultMinWidth = 80;
+    const int defaultPadding = 10;
+
+    internal static List<int> GetPadding(string input, int minWidth = defaultMinWidth, int padding = defaultPadding)
     {
         int totalWidth = minWidth + padding * 2;
         int leftPadding = (totalWidth - input.Length) / 2;
         int rightPadding = totalWidth - input.Length - leftPadding;
         return new List<int> { leftPadding, rightPadding, totalWidth };
     }
-    internal static string Pad(string input, string outer = "||", int minWidth = 80, int padding = 10)
+    internal static string Pad(string input, string outer = "||", int minWidth = defaultMinWidth, int padding = defaultPadding)
     {
         var padded = GetPadding(input, minWidth, padding);
-        return $"{outer}{new string(' ', padded[index: 0])}{input}{new string(' ', padded[1])}{outer}";
+        return $"{outer}{new string(' ', Math.Max(padded[index: 0], 0))}{input}{new string(' ', Math.Max(padded[1], 0))}{outer}";
     }
+
+    internal static string Fill(char c, int width = defaultMinWidth, int padding = defaultPadding)
+    {
+        return new string(c, width + padding * 2 + 4);
+    }
+
     internal static string Log(string text, int length = 73)
     {
         text = "|| " + text;

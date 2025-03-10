@@ -28,6 +28,7 @@ internal class ClientCommonUtils : IPatch
                 }
                 this.PrintHeader();
                 var resolver = new DefaultAssemblyResolver();
+                // resolver.AddSearchDirectory(ow.WindowsDesktopApp.FullName);
                 resolver.AddSearchDirectory(versionFolder.FullName);
                 var reader = new ReaderParameters { AssemblyResolver = resolver, ReadWrite = true, ReadingMode = ReadingMode.Immediate, InMemory = true };
 
@@ -40,13 +41,15 @@ internal class ClientCommonUtils : IPatch
                     if (enableDevToolsForQA != null)
                     {
                         enableDevToolsForQA.PatchReturnBool(true);
-                    } else
+                    }
+                    else
                     {
                         Console.WriteLine(Utils.Pad("EnableDevToolsForQA not found!"));
                         Console.WriteLine("");
                     }
 
-                } else
+                }
+                else
                 {
                     Console.WriteLine(Utils.Pad("OverWolf.Client.CommonUtils.Features.CommonFeatures type not found!"));
                 }
@@ -56,14 +59,17 @@ internal class ClientCommonUtils : IPatch
                     fullPath.Backup(true);
                     overwolfCore.Write(fullPath.FullName);
                     Console.WriteLine(Utils.Pad("Patched successfully"));
-                } catch (UnauthorizedAccessException) { Console.WriteLine($"Permission denied for file {fileString}"); } catch (Exception e)
+                }
+                catch (UnauthorizedAccessException) { Console.WriteLine($"Permission denied for file {fileString}"); }
+                catch (Exception e)
                 {
                     fullPath.Restore();
                     Console.WriteLine(e);
                 }
                 resolver.Dispose();
-                Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-            } catch (Exception ex)
+                Console.WriteLine(Utils.Fill('|'));
+            }
+            catch (Exception ex)
             {
                 error = ex;
                 return false;

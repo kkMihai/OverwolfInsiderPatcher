@@ -31,6 +31,7 @@ internal class ClientCore : IPatch
                 }
                 this.PrintHeader();
                 var resolver = new DefaultAssemblyResolver();
+                // resolver.AddSearchDirectory(ow.WindowsDesktopApp.FullName); 
                 resolver.AddSearchDirectory(versionFolder.FullName);
                 var reader = new ReaderParameters { AssemblyResolver = resolver, ReadWrite = true, ReadingMode = ReadingMode.Immediate, InMemory = true };
 
@@ -119,7 +120,7 @@ internal class ClientCore : IPatch
                     Console.WriteLine(e);
                 }
                 resolver.Dispose();
-                Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+                Console.WriteLine(Utils.Fill('|'));
             } catch (Exception ex)
             {
                 error = ex;

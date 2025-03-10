@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
+	<LangVersion>10.0</LangVersion>
     <OutputType>Exe</OutputType>
     <RootNamespace>OverwolfPatcher</RootNamespace>
     <AssemblyName>OverwolfPatcher</AssemblyName>
@@ -27,7 +28,7 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <PublishTrimmed>True</PublishTrimmed>
+    <PublishTrimmed>False</PublishTrimmed>
     <Title>Overwolf Patcher</Title>
     <Authors>Decode, Bluscream</Authors>
     <Description>Patcher for Overwolf</Description>
@@ -40,7 +41,7 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

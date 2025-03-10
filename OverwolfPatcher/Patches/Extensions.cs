@@ -28,6 +28,7 @@ internal class Extensions : IPatch
                 }
                 this.PrintHeader();
                 var resolver = new DefaultAssemblyResolver();
+                // resolver.AddSearchDirectory(ow.WindowsDesktopApp.FullName);
                 resolver.AddSearchDirectory(versionFolder.FullName);
                 var reader = new ReaderParameters { AssemblyResolver = resolver, ReadWrite = true, ReadingMode = ReadingMode.Immediate, InMemory = true };
 
@@ -45,7 +46,8 @@ internal class Extensions : IPatch
                     {
                         VerifyFileSync.PatchReturnBool(false);
                     }
-                } else
+                }
+                else
                 {
                     Console.WriteLine(Utils.Pad("OverWolf.Extensions.Validation type not found!"));
                 }
@@ -55,17 +57,24 @@ internal class Extensions : IPatch
                     fullPath.Backup(true);
                     overwolfExtensions.Write(fullPath.FullName);
                     Console.WriteLine(Utils.Pad("Patched successfully"));
-                } catch (UnauthorizedAccessException) { Console.WriteLine($"Permission denied for file {fileString}"); } catch (Exception e)
+                }
+                catch (UnauthorizedAccessException) { Console.WriteLine($"Permission denied for file {fileString}"); }
+                catch (Exception e)
                 {
                     fullPath.Restore();
                     Console.WriteLine(e);
                 }
                 resolver.Dispose();
-                Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-            } catch (Exception ex)
+
+            }
+            catch (Exception ex)
             {
                 error = ex;
                 return false;
+            }
+            finally
+            {
+                Console.WriteLine(Utils.Fill('|'));
             }
         }
         return true;

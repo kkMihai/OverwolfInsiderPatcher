@@ -32,7 +32,7 @@ namespace OverwolfPatcher
             {
                 Console.WriteLine("Overwolf app is running, do you want to close it now? (y/n)");
                 var key = Console.ReadKey();
-                if (key.Key == ConsoleKey.Y) ow.Processes.ForEach(p => p.Kill());
+                if (key.Key == ConsoleKey.Y) ow.Processes.ForEach(p => { p.Kill(); p.WaitForExit(); });
                 else
                 {
                     Console.WriteLine("Cannot continue, press any key to exit");
