@@ -2,17 +2,17 @@
 using System.Linq;
 using System.Reflection;
 
-public static class AssemblyInfo
+public static class AssemblyInfo // for some reason this isnt working so i had to hardcode the fallback values
 {
     private static readonly Assembly _assembly = typeof(AssemblyInfo).Assembly;
 
-    public static string Title => GetAttributeOrDefault("Title", "Untitled");
-    public static Version Version => _assembly.GetName().Version;
-    public static string Description => GetAttributeOrDefault("Description", "No description available.");
-    public static string Product => GetAttributeOrDefault("Product", "No product name specified.");
-    public static string Copyright => GetAttributeOrDefault("Copyright", "© No copyright specified.");
-    public static string Trademark => GetAttributeOrDefault("Trademark", "No trademark specified.");
-    public static string Company => GetAttributeOrDefault("Company", "No company specified.");
+    public static string Title => _assembly.GetName().Name ?? GetAttributeOrDefault("Title", "Overwolf Patcher");
+    public static Version Version => _assembly.GetName()?.Version ?? new Version(1,0,0);
+    public static string Description => GetAttributeOrDefault("Description", "Patcher for Overwolf");
+    public static string Product => GetAttributeOrDefault("Product", "OverwolfPatcher");
+    public static string Copyright => GetAttributeOrDefault("Copyright", "© 2025");
+    public static string Trademark => GetAttributeOrDefault("Trademark", "™️");
+    public static string Company => GetAttributeOrDefault("Company", "DecoderCoder, Bluscream");
 
     private static string GetAttributeOrDefault(string attributeName, string defaultValue)
     {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
 using System.Threading;
+using OverwolfPatcher.Classes;
 
 namespace Bluscream;
 
@@ -123,5 +124,15 @@ internal static class Utils
             isAdmin = false;
         }
         return isAdmin;
+    }
+    internal static void ErrorAndExit(string message, bool reinstall_overwolf = false)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(message);
+        Console.ResetColor();
+        Console.WriteLine("Press any key to exit...");
+        Console.ReadKey();
+        if (reinstall_overwolf) Overwolf.DownloadUrl.OpenInDefaultBrowser();
+        Exit(1);
     }
 }

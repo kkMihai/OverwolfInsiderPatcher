@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -375,6 +376,14 @@ public static class Extensions
             match = match.NextMatch();
         }
         return paramaters;
+    }
+    public static void OpenInDefaultBrowser(this Uri uri)
+    {
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = uri.AbsoluteUri,
+            UseShellExecute = true
+        });
     }
     #endregion
     #region Enum
